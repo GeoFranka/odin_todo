@@ -1,0 +1,33 @@
+{
+  "name": "webpack_template",
+  "version": "1.0.0",
+  "description": "a template for projects using webpack",
+  "homepage": "https://github.com/GeoFranka/webpack_template#readme",
+  "bugs": {
+    "url": "https://github.com/GeoFranka/webpack_template/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GeoFranka/webpack_template.git"
+  },
+  "license": "ISC",
+  "author": "FG",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "css-loader": "^7.1.4",
+    "html-loader": "^5.1.0",
+    "html-webpack-plugin": "^5.6.7",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.107.2",
+    "webpack-cli": "^7.0.3",
+    "webpack-dev-server": "^5.2.5",
+    "webpack-merge": "^6.0.1"
+  },
+  "dependencies": {
+    "modern-normalize": "^3.0.1"
+  }
+}
