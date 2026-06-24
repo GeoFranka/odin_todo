@@ -1,21 +1,22 @@
 {
-  "name": "webpack_template",
+  "name": "Odin ToDo List",
   "version": "1.0.0",
-  "description": "a template for projects using webpack",
-  "homepage": "https://github.com/GeoFranka/webpack_template#readme",
+  "description": "a simple to do list",
+  "homepage": "https://github.com/GeoFranka/odin_todo#readme",
   "bugs": {
-    "url": "https://github.com/GeoFranka/webpack_template/issues"
+    "url": "https://github.com/GeoFranka/odin_todo/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/GeoFranka/webpack_template.git"
+    "url": "git+https://github.com/GeoFranka/odin_todo.git"
   },
   "license": "ISC",
   "author": "FG",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack.prod.js",
+    "dev": "webpack serve --config webpack.dev.js"
   },
   "devDependencies": {
     "css-loader": "^7.1.4",
