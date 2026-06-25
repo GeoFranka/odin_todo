@@ -24,6 +24,10 @@ export default class Project {
         return this.id;
     }
 
+    get description(){
+        return this.description;
+    }
+
     addTodo(title, description, dueDate, priority){
         this.todoList.push(createTodo(title, description, dueDate, priority));
         console.log(this.todoList);

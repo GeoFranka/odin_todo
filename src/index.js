@@ -1,16 +1,28 @@
 import '../node_modules/modern-normalize/modern-normalize.css';
 import "./style.css";
-import Project from './Project.js';
-import displayProjects from './displayProjects.js';
+import Project from "./Project.js";
+import domManagerProjects from './displayProjects.js';
+import displayProject from './displayProject.js';
 
-let projects = [];
+const projects = [];
+let defaultProjectId;
 
-const myDefaultProject = new Project("My To Dos", "just the default project");
-var tomorrow = new Date();
-tomorrow.setDate(tomorrow.getDate() + 1);
-myDefaultProject.addTodo("do the dishes", "just do it, ok", tomorrow);
-projects.push(myDefaultProject);
+function init(){
+    const myDefaultProject = new Project("My To Dos", "just the default project");
+    defaultProjectId = myDefaultProject.id;
+    var tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    myDefaultProject.addTodo("do the dishes", "just do it, ok", tomorrow);
+    projects.push(myDefaultProject);
 
-displayProjects(projects);
+    const newDummyProject = new Project("Trip to Switzerland", "We're going there in August!");
+    projects.push(newDummyProject);
+}
 
-console.log(projects);
+init();
+
+const domManager = domManagerProjects(projects);
+domManager.displayProjects();
+
+domManager.toggleActiveProject(defaultProjectId);
+displayProject(defaultProjectId, projects);
