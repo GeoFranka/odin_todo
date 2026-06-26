@@ -1,8 +1,7 @@
 import '../node_modules/modern-normalize/modern-normalize.css';
 import "./style.css";
 import Project from "./Project.js";
-import domManagerProjects from './displayProjects.js';
-import displayProject from './displayProject.js';
+import displaySidebar from './displaySidebar.js';
 
 const projects = [];
 let defaultProjectId;
@@ -21,8 +20,4 @@ function init(){
 
 init();
 
-const domManager = domManagerProjects(projects);
-domManager.displayProjects();
-
-domManager.toggleActiveProject(defaultProjectId);
-displayProject(defaultProjectId, projects);
+displaySidebar(projects, projects[0].id);

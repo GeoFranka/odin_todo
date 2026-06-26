@@ -1,8 +1,4 @@
-export default function displayProject(id, projectArray){
-
-    const project = projectArray.find(pr=>{
-        return pr.id == id;
-    });
+export default function displayProject(project){
 
     const projectDiv = document.querySelector("#main .project");
     projectDiv.textContent = "";
@@ -16,5 +12,9 @@ export default function displayProject(id, projectArray){
     description.classList.add("project-descr");
     description.textContent = project.description;
     projectDiv.appendChild(description);
+
+    const todoDiv = document.createElement("div");
+    todoDiv.classList.add("todos");
+    projectDiv.appendChild(todoDiv);
 
 };
