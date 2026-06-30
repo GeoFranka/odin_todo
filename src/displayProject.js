@@ -1,3 +1,5 @@
+import displayTodo from "./displayTodo.js";
+
 export default function displayProject(project){
 
     const projectDiv = document.querySelector("#main .project");
@@ -16,5 +18,9 @@ export default function displayProject(project){
     const todoDiv = document.createElement("div");
     todoDiv.classList.add("todos");
     projectDiv.appendChild(todoDiv);
+
+    project.todos.forEach(todo => {
+        todoDiv.appendChild(displayTodo(todo));
+    });
 
 };
