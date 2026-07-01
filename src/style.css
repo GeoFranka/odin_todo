@@ -52,11 +52,23 @@ button:hover {
     font-style: italic;
 }
 
-.todo {
+.todo-main {
     display: grid;
     grid-template-columns: 24px 3fr 2fr 24px;
     column-gap: 10px;
     align-items: center;
+    background-color: gainsboro;
+    padding: 3px;
+}
+
+.todo-detail {
+    display: grid;
+    grid-template-columns: 24px 3fr 2fr;
+    column-gap: 10px;
+    align-items: center;
+    border: 1px dashed gray;
+    border-top: none;
+    padding: 5px 0;
 }
 
 .icon {
@@ -88,4 +100,12 @@ button:hover {
 
 .expand {
     background-image: url(./img/arrow-expand.svg);
+}
+
+.collapse {
+    background-image: url(./img/arrow-collapse.svg);
+}
+
+.collapsed {
+    display: none;
 }
