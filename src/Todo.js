@@ -10,6 +10,10 @@ function createTodo(title, description, dueDate, priority) {
         doneDate = new Date();
     }
 
+    function setAsUndone(){
+        doneDate = null;
+    }
+
     function isDone(){
         return doneDate != null;
     }
@@ -20,7 +24,8 @@ function createTodo(title, description, dueDate, priority) {
         dueDate,
         priority,
         isDone,
-        setAsDone
+        setAsDone,
+        setAsUndone,
     }
 
 }

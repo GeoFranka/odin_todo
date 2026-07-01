@@ -56,6 +56,7 @@ button:hover {
     display: grid;
     grid-template-columns: 24px 3fr 2fr 24px;
     column-gap: 10px;
+    align-items: center;
 }
 
 .icon {
@@ -68,12 +69,17 @@ button:hover {
     background-color: transparent;
 }
 
-.undone {
+.icon.undone {
     background-image: url(./img/circle-outline.svg);
 }
 
-.done {
+.icon.done {
     background-image: url(./img/circle.svg);
+}
+
+.todo-title.done{
+    text-decoration: line-through;
+    color: gray;
 }
 
 .expand {
