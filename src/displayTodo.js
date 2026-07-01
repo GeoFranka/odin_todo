@@ -1,3 +1,5 @@
+import { formatRelative } from "date-fns";
+
 export default function displayTodo(todo){
 
     const todoDiv = document.createElement('div');
@@ -12,10 +14,10 @@ export default function displayTodo(todo){
         } else {
             todo.setAsDone();
         }
-        doneBtn.classList.toggle("undone");
-        doneBtn.classList.toggle("done");
-        titleDiv.classList.toggle("undone");
-        titleDiv.classList.toggle("done");
+        [doneBtn, titleDiv, dueDateDiv].forEach(element => {
+            element.classList.toggle("undone");
+            element.classList.toggle("done");
+        });
     });
     todoDiv.appendChild(doneBtn);
 
@@ -27,7 +29,9 @@ export default function displayTodo(todo){
 
     const dueDateDiv = document.createElement('div');
     dueDateDiv.classList.add("due-date");
-    dueDateDiv.textContent = todo.dueDate.toDateString();
+    dueDateDiv.classList.add(todo.isDone()?"done":"undone");
+    const relativeDueDate = formatRelative(todo.dueDate, new Date());
+    dueDateDiv.textContent = relativeDueDate.split(" at ")[0];
     todoDiv.appendChild(dueDateDiv);
 
     const expandBtn = document.createElement('button');

@@ -82,6 +82,10 @@ button:hover {
     color: gray;
 }
 
+.due-date.done {
+    color: green;
+}
+
 .expand {
     background-image: url(./img/arrow-expand.svg);
 }
