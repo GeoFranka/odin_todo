@@ -4,6 +4,12 @@ function createTodo(title, description, dueDate, priority) {
         priority = 2;
     }
 
+    const priorityAsText = {
+        1: "high priority",
+        2: "medium priority",
+        3: "low priority"
+    };
+
     let doneDate = null;
 
     function setAsDone(){
@@ -18,11 +24,15 @@ function createTodo(title, description, dueDate, priority) {
         return doneDate != null;
     }
 
+    function getPriority(){
+        return priorityAsText[priority];
+    }
+
     return {
         title,
         description,
         dueDate,
-        priority,
+        getPriority,
         isDone,
         setAsDone,
         setAsUndone,
