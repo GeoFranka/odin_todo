@@ -2,6 +2,7 @@ import Project from "./Project.js";
 import displayTodo from "./displayTodo.js";
 import { todoForm } from "./displayTodo.js";
 import displaySidebar from "./displaySidebar.js";
+import createInput from "./inputFactory.js";
 
 function projectForm(projectList){
     const projectDiv = document.querySelector("#main .project");
@@ -10,18 +11,10 @@ function projectForm(projectList){
     const projForm = document.createElement('form');
     projectDiv.appendChild(projForm);
 
-    const titleInput = document.createElement("input");
-    titleInput.classList.add("project-title");
-    titleInput.setAttribute("name", "project-title");
-    titleInput.setAttribute("id", "project-title");
-    titleInput.setAttribute("placeholder", "Name of your new project");
+    const titleInput = createInput("text", "project-title", "project-title", "Name of your new project");
     projForm.appendChild(titleInput);
 
-    const descriptionInput = document.createElement("input");
-    descriptionInput.classList.add("project-descr");
-    descriptionInput.setAttribute("name", "project-descr");
-    descriptionInput.setAttribute("id", "project-descr");
-    descriptionInput.setAttribute("placeholder", "Description of your project");
+    const descriptionInput = createInput("text", "project-descr", "project-descr", "Description of your project");
     projForm.appendChild(descriptionInput);
 
     const saveBtn = document.createElement('button');
@@ -30,7 +23,6 @@ function projectForm(projectList){
     saveBtn.addEventListener('click', () => {
         const newProject = new Project(titleInput.value, descriptionInput.value);
         projectList.push(newProject);
-        displayProject(newProject);
         displaySidebar(projectList, newProject.id);
     });
     projForm.appendChild(saveBtn);

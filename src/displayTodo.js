@@ -1,5 +1,6 @@
-import { formatRelative } from "date-fns";
+import { formatRelative, formatISO } from "date-fns";
 import Todo from "./Todo.js";
+import createInput from "./inputFactory.js";
 
 function toggleDetail(e){
     const btn = e.target;
@@ -22,33 +23,20 @@ function todoForm(todoList){
     doneBtn.setAttribute("type", "button");
     mainDiv.appendChild(doneBtn);
 
-    const titleInput = document.createElement('input');
-    titleInput.classList.add("todo-title");
-    titleInput.setAttribute("name", "todo-title");
-    titleInput.setAttribute("id", "todo-title");
-    titleInput.setAttribute("placeholder", "What should be done?");
+    const titleInput = createInput("text", "todo-title", "todo-title", "What should be done?");
     mainDiv.appendChild(titleInput);
 
-    const dueDateInput = document.createElement('input');
-    dueDateInput.classList.add("due-date");
-    dueDateInput.setAttribute("type", "date");
-    dueDateInput.setAttribute("name", "due-date");
-    dueDateInput.setAttribute("id", "due-date");
     var tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    const tomorrowAsString = tomorrow.toISOString().split("T")[0];
-    dueDateInput.value = tomorrowAsString;
+    const tomorrowAsString = formatISO(tomorrow, {representation: 'date'});
+    const dueDateInput = createInput("date", "due-date", "due-date", "", tomorrowAsString);
     mainDiv.appendChild(dueDateInput);
 
     const detailDiv = document.createElement('div');
     detailDiv.classList.add("todo-detail");
     todoForm.appendChild(detailDiv);
 
-    const descrInput = document.createElement('input');
-    descrInput.classList.add("todo-descr");
-    descrInput.setAttribute("name", "todo-descr");
-    descrInput.setAttribute("id", "todo-descr");
-    descrInput.setAttribute("placeholder", "Explain further.");
+    const descrInput = createInput("text", "todo-descr", "todo-descr", "Explain further.");
     detailDiv.appendChild(descrInput);
 
     const prioDropdown = document.createElement('select');
