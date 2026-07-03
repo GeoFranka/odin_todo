@@ -3,7 +3,7 @@ class Todo {
     id = crypto.randomUUID();
     title; 
     description; 
-    priority;
+    #priority;
     dueDate; 
     doneDate;
 
@@ -17,31 +17,11 @@ class Todo {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
-        this.priority = priority || 2;
-    }
-
-    get title(){
-        return this.title;
-    }
-
-    get id(){
-        return this.id;
-    }
-
-    get description(){
-        return this.description;
+        this.#priority = priority || 2;
     }
 
     get priority(){
-        return Todo.priorityAsText[this.priority];
-    }
-
-    get dueDate(){
-        return this.dueDate;
-    }
-
-    get doneDate(){
-        return this.doneDate;
+        return Todo.priorityAsText[this.#priority];
     }
 
     get done(){

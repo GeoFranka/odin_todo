@@ -1,9 +1,12 @@
 import displayProject from "./displayProject.js";
+import { projectForm } from "./displayProject.js";
 
 function displaySidebar(projectsArray, selectedProjectId){
 
     const projectsDiv = document.querySelector(".projects");
     const projectBtns = document.getElementsByClassName("project-btn");
+
+    projectsDiv.textContent = "";
 
     projectsArray.forEach(project => {
         const btn = document.createElement("button");
@@ -37,6 +40,11 @@ function displaySidebar(projectsArray, selectedProjectId){
             }
         }
     }
+
+    document.querySelector(".project-add").addEventListener('click', () => {
+        projectForm(projectsArray);
+    });
+
 }
 
 export default displaySidebar;
