@@ -1,4 +1,4 @@
-import createTodo from "./Todo.js";
+import Todo from "./Todo.js";
 
 export default class Project {
 
@@ -29,7 +29,7 @@ export default class Project {
     }
 
     addTodo(title, description, dueDate, priority){
-        this.todoList.push(createTodo(title, description, dueDate, priority));
+        this.todoList.push(new Todo(title, description, dueDate, priority));
         console.log(this.todoList);
     }
 

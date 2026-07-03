@@ -1,43 +1,61 @@
-function createTodo(title, description, dueDate, priority) {
+class Todo {
 
-    if(priority==null){
-        priority = 2;
-    }
+    id = crypto.randomUUID();
+    title; 
+    description; 
+    priority;
+    dueDate; 
+    doneDate;
 
-    const priorityAsText = {
+    static priorityAsText = {
         1: "high priority",
         2: "medium priority",
         3: "low priority"
     };
 
-    let doneDate = null;
-
-    function setAsDone(){
-        doneDate = new Date();
+    constructor(title, description, dueDate, priority){
+        this.title = title;
+        this.description = description;
+        this.dueDate = dueDate;
+        this.priority = priority || 2;
     }
 
-    function setAsUndone(){
-        doneDate = null;
+    get title(){
+        return this.title;
     }
 
-    function isDone(){
-        return doneDate != null;
+    get id(){
+        return this.id;
     }
 
-    function getPriority(){
-        return priorityAsText[priority];
+    get description(){
+        return this.description;
     }
 
-    return {
-        title,
-        description,
-        dueDate,
-        getPriority,
-        isDone,
-        setAsDone,
-        setAsUndone,
+    get priority(){
+        return Todo.priorityAsText[this.priority];
+    }
+
+    get dueDate(){
+        return this.dueDate;
+    }
+
+    get doneDate(){
+        return this.doneDate;
+    }
+
+    get done(){
+        return this.doneDate != null;
+    }
+
+    markDone(){
+        this.doneDate = new Date();
+    }
+
+    markUndone(){
+        this.doneDate = null;
     }
 
 }
 
-export default createTodo;
+export default Todo;

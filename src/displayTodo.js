@@ -1,11 +1,5 @@
 import { formatRelative } from "date-fns";
-import createTodo from "./Todo.js";
-
-const priorityAsText = {
-    1: "high priority",
-    2: "medium priority",
-    3: "low priority"
-};
+import Todo from "./Todo.js";
 
 function toggleDetail(e){
     const btn = e.target;
@@ -61,7 +55,7 @@ function todoForm(todoList){
     prioDropdown.classList.add("priority");
     prioDropdown.setAttribute("name", "priority");
     prioDropdown.setAttribute("id", "priority");
-    for (const [key, value] of Object.entries(priorityAsText)) {
+    for (const [key, value] of Object.entries(Todo.priorityAsText)) {
         const option = document.createElement('option');
         option.value = key;
         option.textContent = value;
@@ -78,7 +72,7 @@ function todoForm(todoList){
     saveBtn.classList.add("icon", "save");
     saveBtn.setAttribute("type", "button");
     saveBtn.addEventListener('click', () => {
-        const newTodo = createTodo(titleInput.value, descrInput.value, dueDateInput.value, prioDropdown.value);
+        const newTodo = new Todo(titleInput.value, descrInput.value, dueDateInput.value, prioDropdown.value);
         todoList.push(newTodo);
         todoForm.remove();
         const todoDiv = displayTodo(newTodo);
@@ -100,12 +94,12 @@ export default function displayTodo(todo){
 
     const doneBtn = document.createElement('button');
     doneBtn.classList.add("icon");
-    doneBtn.classList.add(todo.isDone()?"done":"undone");
+    doneBtn.classList.add(todo.done?"done":"undone");
     doneBtn.addEventListener('click', e => {
-        if(todo.isDone()){
-            todo.setAsUndone();
+        if(todo.done){
+            todo.markUndone();
         } else {
-            todo.setAsDone();
+            todo.markDone();
         }
         [doneBtn, titleDiv, dueDateDiv].forEach(element => {
             element.classList.toggle("undone");
@@ -116,13 +110,13 @@ export default function displayTodo(todo){
 
     const titleDiv = document.createElement('div');
     titleDiv.classList.add("todo-title");
-    titleDiv.classList.add(todo.isDone()?"done":"undone");
+    titleDiv.classList.add(todo.done?"done":"undone");
     titleDiv.textContent = todo.title;
     mainDiv.appendChild(titleDiv);
 
     const dueDateDiv = document.createElement('div');
     dueDateDiv.classList.add("due-date");
-    dueDateDiv.classList.add(todo.isDone()?"done":"undone");
+    dueDateDiv.classList.add(todo.done?"done":"undone");
     const relativeDueDate = formatRelative(todo.dueDate, new Date());
     dueDateDiv.textContent = relativeDueDate.split(" at ")[0];
     mainDiv.appendChild(dueDateDiv);
@@ -143,7 +137,7 @@ export default function displayTodo(todo){
 
     const prioDiv = document.createElement('div');
     prioDiv.classList.add("priority");
-    prioDiv.textContent = todo.getPriority();
+    prioDiv.textContent = todo.priority;
     detailDiv.appendChild(prioDiv);
 
     return todoDiv;
