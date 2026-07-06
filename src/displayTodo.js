@@ -10,6 +10,12 @@ function toggleDetail(e){
     detailDiv.classList.toggle("collapsed");
 }
 
+function showDoneDate(todo, div){
+        const relativeDoneDate = formatRelative(todo.doneDate, new Date());
+        div.textContent = "Done: " + relativeDoneDate.split(" at ")[0];
+
+}
+
 function todoForm(todoList){
     const todoForm = document.createElement('form');
     todoForm.classList.add("todo");
@@ -63,8 +69,7 @@ function todoForm(todoList){
         const newTodo = new Todo(titleInput.value, descrInput.value, dueDateInput.value, prioDropdown.value);
         todoList.push(newTodo);
         todoForm.remove();
-        const todoDiv = displayTodo(newTodo);
-        document.querySelector(".todos").appendChild(todoDiv);
+        document.querySelector(".todos").appendChild(displayTodo(newTodo));
     });
     detailDiv.appendChild(saveBtn);
 
@@ -93,6 +98,7 @@ export default function displayTodo(todo){
             element.classList.toggle("undone");
             element.classList.toggle("done");
         });
+        showDoneDate(todo, doneDateDiv);
     });
     mainDiv.appendChild(doneBtn);
 
@@ -127,6 +133,22 @@ export default function displayTodo(todo){
     prioDiv.classList.add("priority");
     prioDiv.textContent = todo.priority;
     detailDiv.appendChild(prioDiv);
+
+    const doneDateDiv = document.createElement('div');
+    doneDateDiv.classList.add("done-date");
+    if(todo.done){
+        showDoneDate(todo, doneDateDiv);
+    }
+    detailDiv.appendChild(doneDateDiv);
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add("icon", "delete");
+    deleteBtn.setAttribute("title", "Delete this to do");
+    deleteBtn.addEventListener('click', () => {
+        todo.project.deleteTodo(todo.id);
+        todoDiv.remove();
+    });
+    detailDiv.appendChild(deleteBtn);
 
     return todoDiv;
 

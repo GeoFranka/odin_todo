@@ -91,10 +91,11 @@ form > .save {
 
 .todo-detail {
     display: grid;
-    grid-template-columns: 3fr 2fr 24px;
+    grid-template-columns: 3fr 2fr;
     column-gap: 10px;
+    row-gap: 3px;
     align-items: center;
-    padding: 3px 3px 3px 37px;
+    padding: 3px 37px;
 }
 
 .icon {
@@ -124,6 +125,10 @@ form > .save {
     color: lightgreen;
 }
 
+.done-date {
+    font-weight: 600;
+}
+
 .expand {
     background-image: url(./img/arrow-expand.svg);
 }
@@ -142,4 +147,9 @@ form > .save {
 
 .save {
     background-image: url(./img/content-save-outline.svg);
+}
+
+.delete {
+    background-image: url(./img/delete-circle-outline.svg);
+    justify-self: end;
 }

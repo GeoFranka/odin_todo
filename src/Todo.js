@@ -1,6 +1,7 @@
 class Todo {
 
     id = crypto.randomUUID();
+    project;
     title; 
     description; 
     #priority;
@@ -13,11 +14,12 @@ class Todo {
         3: "low priority"
     };
 
-    constructor(title, description, dueDate, priority){
+    constructor(title, description, dueDate, priority, project){
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.#priority = priority || 2;
+        this.project = project;
     }
 
     get priority(){

@@ -17,7 +17,14 @@ export default class Project {
     }
 
     addTodo(title, description, dueDate, priority){
-        this.todoList.push(new Todo(title, description, dueDate, priority));
+        this.todoList.push(new Todo(title, description, dueDate, priority, this));
+    }
+
+    deleteTodo(id){
+        const todoIndex = this.todoList.findIndex(t => {
+            return t.id == id;
+        });
+        this.todoList.splice(todoIndex, 1);
     }
 
 }
