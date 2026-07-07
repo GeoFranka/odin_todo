@@ -1,7 +1,9 @@
+import { getProjectsFromLocalStorage } from "./localStorage.js";
+
 class Todo {
 
     id = crypto.randomUUID();
-    project;
+    projectId;
     title; 
     description; 
     #priority;
@@ -19,7 +21,7 @@ class Todo {
         this.description = description;
         this.dueDate = dueDate;
         this.#priority = priority || 2;
-        this.project = project;
+        this.projectId = project.id;
     }
 
     get priority(){
@@ -36,6 +38,12 @@ class Todo {
 
     markUndone(){
         this.doneDate = null;
+    }
+
+    delete(){
+        let projects = getProjectsFromLocalStorage();
+        const myProject = projects.find(p=>{return p.id==this.projectId;});
+        myProject.deleteTodo(this.id);
     }
 
 }

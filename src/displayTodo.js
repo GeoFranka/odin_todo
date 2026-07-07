@@ -16,7 +16,7 @@ function showDoneDate(todo, div){
 
 }
 
-function todoForm(todoList){
+function todoForm(project){
     const todoForm = document.createElement('form');
     todoForm.classList.add("todo");
 
@@ -67,7 +67,7 @@ function todoForm(todoList){
     saveBtn.setAttribute("type", "button");
     saveBtn.addEventListener('click', () => {
         const newTodo = new Todo(titleInput.value, descrInput.value, dueDateInput.value, prioDropdown.value);
-        todoList.push(newTodo);
+        project.push(newTodo);
         todoForm.remove();
         document.querySelector(".todos").appendChild(displayTodo(newTodo));
     });
@@ -145,7 +145,7 @@ export default function displayTodo(todo){
     deleteBtn.classList.add("icon", "delete");
     deleteBtn.setAttribute("title", "Delete this to do");
     deleteBtn.addEventListener('click', () => {
-        todo.project.deleteTodo(todo.id);
+        todo.delete();
         todoDiv.remove();
     });
     detailDiv.appendChild(deleteBtn);

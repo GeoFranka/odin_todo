@@ -1,4 +1,5 @@
 import Todo from "./Todo.js";
+import { saveProjectToLocalStorage } from "./localStorage.js";
 
 export default class Project {
 
@@ -10,6 +11,7 @@ export default class Project {
     constructor(title, description){
         this.title = title;
         this.description = description;
+        saveProjectToLocalStorage(this);
     }
 
     get todos(){
@@ -18,13 +20,17 @@ export default class Project {
 
     addTodo(title, description, dueDate, priority){
         this.todoList.push(new Todo(title, description, dueDate, priority, this));
+        saveProjectToLocalStorage(this);
     }
 
     deleteTodo(id){
         const todoIndex = this.todoList.findIndex(t => {
             return t.id == id;
         });
-        this.todoList.splice(todoIndex, 1);
+        if(todoIndex>-1){
+            this.todoList.splice(todoIndex, 1);
+        }
+        saveProjectToLocalStorage(this);
     }
 
 }
