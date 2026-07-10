@@ -30,7 +30,14 @@ function getProjectsFromLocalStorage() {
         projectsArray.forEach(pr=>{
             const project = new Project(pr.title, pr.description, pr.id);
             pr.todoList.forEach(td=>{
-                project.addTodo(td.title, td.description, parseJSON(td.dueDate), td.priority, td.id, td.doneDate ? parseJSON(td.doneDate) : null);
+                project.addTodo(
+                    td.title, 
+                    td.description, 
+                    parseJSON(td.dueDate), 
+                    td.priority, 
+                    td.id, 
+                    td.doneDate ? parseJSON(td.doneDate) : null
+                );
             });
             projects.push(project);
         });
@@ -58,28 +65,25 @@ function saveProjectToLocalStorage(project){
         projects.push(project);
     }
 
-    let stringifiedProjects = projects.map( pr => {
-        return stringifyProject(pr);
-    });
-
-    ls.setItem("projects", JSON.stringify(stringifiedProjects));
+    ls.setItem("projects", JSON.stringify(projects.map(stringifyProject)));
 
 }
 
 function stringifyProject(project){
-    let projectAsObject = {};
-    projectAsObject.id = project.id;
-    projectAsObject.title = project.title;
-    projectAsObject.description = project.description;
+    let projectAsObject = {
+        id: project.id,
+        title: project.title,
+        description: project.description,
+    };
     projectAsObject.todoList = project.todos.map( todo => {
-        let todoAsObject = {};
-        todoAsObject.id = todo.id;
-        todoAsObject.title = todo.title;
-        todoAsObject.description = todo.description;
-        todoAsObject.priority = todo.priority;
-        todoAsObject.dueDate = todo.dueDate.toJSON();
-        todoAsObject.doneDate = todo.doneDate ? todo.doneDate.toJSON() : null;
-        return todoAsObject;
+        return {
+            id: todo.id,
+            title: todo.title,
+            description: todo.description,
+            priority: todo.priority,
+            dueDate: todo.dueDate.toJSON(),
+            doneDate: todo.doneDate ? todo.doneDate.toJSON() : null
+        };
     });
     return projectAsObject;
 }

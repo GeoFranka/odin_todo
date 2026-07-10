@@ -48,7 +48,7 @@ class Todo {
 
     delete(){
         this.project.deleteTodo(this.id);
-        myProject.saveToLocalStorage();
+        this.project.saveToLocalStorage();
     }
 
 }
