@@ -11,8 +11,8 @@ function toggleDetail(e){
 }
 
 function showDoneDate(todo, div){
-        const relativeDoneDate = formatRelative(todo.doneDate, new Date());
-        div.textContent = "Done: " + relativeDoneDate.split(" at ")[0];
+    const relativeDoneDate = formatRelative(todo.doneDate, new Date());
+    div.textContent = "Done: " + relativeDoneDate.split(" at ")[0];
 
 }
 
@@ -66,10 +66,10 @@ function todoForm(project){
     saveBtn.classList.add("icon", "save");
     saveBtn.setAttribute("type", "button");
     saveBtn.addEventListener('click', () => {
-        const newTodo = new Todo(titleInput.value, descrInput.value, dueDateInput.value, prioDropdown.value);
-        project.push(newTodo);
+        const newTodo = project.addTodo(titleInput.value, descrInput.value, dueDateInput.valueAsDate, prioDropdown.value);
         todoForm.remove();
         document.querySelector(".todos").appendChild(displayTodo(newTodo));
+        project.saveToLocalStorage();
     });
     detailDiv.appendChild(saveBtn);
 

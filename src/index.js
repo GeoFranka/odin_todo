@@ -4,7 +4,7 @@ import Project from "./Project.js";
 import displaySidebar from './displaySidebar.js';
 import { storageAvailable, getProjectsFromLocalStorage } from './localStorage.js';
 
-const projects = [];
+let projects = [];
 let defaultProjectId;
 
 function createDefaultProject(){
@@ -15,20 +15,21 @@ function createDefaultProject(){
     tomorrow.setDate(tomorrow.getDate() + 1);
     myDefaultProject.addTodo("do the dishes", "just do it, ok", tomorrow);
     projects.push(myDefaultProject);
+    myDefaultProject.saveToLocalStorage();
 
 }
 
 function init(){
-
+    
     if(storageAvailable("localStorage") && getProjectsFromLocalStorage()){
 
         projects = getProjectsFromLocalStorage();
 
     } else {
         createDefaultProject();
-
         const newDummyProject = new Project("Trip to Switzerland", "We're going there in August!");
         projects.push(newDummyProject);
+        newDummyProject.saveToLocalStorage();
     }
 
 }

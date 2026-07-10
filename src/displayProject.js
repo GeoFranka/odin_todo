@@ -23,6 +23,7 @@ function projectForm(projectList){
     saveBtn.addEventListener('click', () => {
         const newProject = new Project(titleInput.value, descriptionInput.value);
         projectList.push(newProject);
+        newProject.saveToLocalStorage();
         displaySidebar(projectList, newProject.id);
     });
     projForm.appendChild(saveBtn);
@@ -51,7 +52,7 @@ export default function displayProject(project){
     addBtn.classList.add("icon", "todo-add");
     addBtn.setAttribute("title", "Add a To Do");
     addBtn.addEventListener('click', () => {
-        todoDiv.appendChild(todoForm(project.todos));
+        todoDiv.appendChild(todoForm(project));
     });
     wrapper.appendChild(addBtn);
 

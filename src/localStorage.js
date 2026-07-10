@@ -1,3 +1,6 @@
+import Project from "./Project.js";
+import { parseJSON } from "date-fns";
+
 const ls = window.localStorage;
 
 function storageAvailable(type) {
@@ -22,8 +25,16 @@ function storageAvailable(type) {
 function getProjectsFromLocalStorage() {
 
     if(ls.getItem("projects") && ls.getItem("projects").length>0){
-        const projectsString = ls.getItem("projects");
-        return JSON.parse(projectsString);
+        let projects = [];
+        const projectsArray = JSON.parse(ls.getItem("projects"));
+        projectsArray.forEach(pr=>{
+            const project = new Project(pr.title, pr.description, pr.id);
+            pr.todoList.forEach(td=>{
+                project.addTodo(td.title, td.description, parseJSON(td.dueDate), td.priority, td.id, td.doneDate ? parseJSON(td.doneDate) : null);
+            });
+            projects.push(project);
+        });
+        return projects;
     }
 
     return false;
@@ -47,9 +58,32 @@ function saveProjectToLocalStorage(project){
         projects.push(project);
     }
 
-    ls.setItem("projects", JSON.stringify(projects));
+    let stringifiedProjects = projects.map( pr => {
+        return stringifyProject(pr);
+    });
+
+    ls.setItem("projects", JSON.stringify(stringifiedProjects));
 
 }
+
+function stringifyProject(project){
+    let projectAsObject = {};
+    projectAsObject.id = project.id;
+    projectAsObject.title = project.title;
+    projectAsObject.description = project.description;
+    projectAsObject.todoList = project.todos.map( todo => {
+        let todoAsObject = {};
+        todoAsObject.id = todo.id;
+        todoAsObject.title = todo.title;
+        todoAsObject.description = todo.description;
+        todoAsObject.priority = todo.priority;
+        todoAsObject.dueDate = todo.dueDate.toJSON();
+        todoAsObject.doneDate = todo.doneDate ? todo.doneDate.toJSON() : null;
+        return todoAsObject;
+    });
+    return projectAsObject;
+}
+
 
 export {
     storageAvailable,

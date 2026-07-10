@@ -3,24 +3,29 @@ import { saveProjectToLocalStorage } from "./localStorage.js";
 
 export default class Project {
 
+    id;
     title;
-    id = crypto.randomUUID();
     description;
     todoList = [];
 
-    constructor(title, description){
+    constructor(title, description, id){
         this.title = title;
         this.description = description;
-        saveProjectToLocalStorage(this);
+        if(id){
+            this.id = id;
+        } else {
+            this.id = crypto.randomUUID();
+        }
     }
 
     get todos(){
         return this.todoList;
     }
 
-    addTodo(title, description, dueDate, priority){
-        this.todoList.push(new Todo(title, description, dueDate, priority, this));
-        saveProjectToLocalStorage(this);
+    addTodo(title, description, dueDate, priority, id, doneDate){
+        const newTodo = new Todo(title, description, dueDate, priority, id, doneDate, this);
+        this.todoList.push(newTodo);
+        return newTodo;
     }
 
     deleteTodo(id){
@@ -30,6 +35,9 @@ export default class Project {
         if(todoIndex>-1){
             this.todoList.splice(todoIndex, 1);
         }
+    }
+
+    saveToLocalStorage(){
         saveProjectToLocalStorage(this);
     }
 
