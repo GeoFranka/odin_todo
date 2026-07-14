@@ -22,8 +22,8 @@ export default class Project {
         return this.todoList;
     }
 
-    addTodo(title, description, dueDate, priority, id, doneDate){
-        const newTodo = new Todo(title, description, dueDate, priority, id, doneDate, this);
+    addTodo(title, description, dueDate, priority, id, doneDate, checklist){
+        const newTodo = new Todo(title, description, dueDate, priority, id, doneDate, checklist, this);
         this.todoList.push(newTodo);
         return newTodo;
     }

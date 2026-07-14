@@ -1,9 +1,12 @@
+import ChecklistItem from "./ChecklistItem.js";
+
 class Todo {
 
     id;
     project;
     title; 
-    description; 
+    description;
+    checklist = [];
     priority;
     dueDate; 
     doneDate;
@@ -14,7 +17,7 @@ class Todo {
         3: "low priority"
     };
 
-    constructor(title, description, dueDate, priority, id, doneDate, project){
+    constructor(title, description, dueDate, priority, id, doneDate, checklist, project){
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
@@ -25,6 +28,9 @@ class Todo {
             this.id = crypto.randomUUID();
         }
         this.doneDate = doneDate;
+        if(checklist.length>0){
+            this.checklist = checklist;
+        }
         this.project = project;
     }
 
@@ -34,6 +40,26 @@ class Todo {
 
     get done(){
         return this.doneDate != null;
+    }
+
+    get checklistCompleted(){
+        return this.checklist.length==0 || this.checklist.every(item => {item.done});
+    }
+
+    get checklistPartlyCompleted(){
+        return this.checklist.some(item=>{item.done}) && !(this.checklist.every(item=>{item.done}));
+    }
+
+    set completeChecklist(value){
+        this.checklist.forEach(item=>{
+            item.done = value;
+        });
+    }
+
+    addChecklistItem(name, id, done){
+        const newItem = new ChecklistItem(name, id, done);
+        this.checklist.push(newItem);
+        return newItem;
     }
 
     markDone(){

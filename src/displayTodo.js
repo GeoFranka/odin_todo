@@ -1,6 +1,7 @@
 import { formatRelative, formatISO } from "date-fns";
 import Todo from "./Todo.js";
 import createInput from "./inputFactory.js";
+import { displayChecklist, checklistItemForm } from "./displayChecklist.js";
 
 function toggleDetail(e){
     const btn = e.target;
@@ -11,9 +12,12 @@ function toggleDetail(e){
 }
 
 function showDoneDate(todo, div){
-    const relativeDoneDate = formatRelative(todo.doneDate, new Date());
-    div.textContent = "Done: " + relativeDoneDate.split(" at ")[0];
-
+    if(todo.done){
+        const relativeDoneDate = formatRelative(todo.doneDate, new Date());
+        div.textContent = "Done: " + relativeDoneDate.split(" at ")[0];
+    } else {
+        div.textContent = "";
+    }
 }
 
 function todoForm(project){
@@ -133,6 +137,9 @@ export default function displayTodo(todo){
     prioDiv.classList.add("priority");
     prioDiv.textContent = todo.priority;
     detailDiv.appendChild(prioDiv);
+
+    detailDiv.appendChild(displayChecklist(todo));
+    detailDiv.appendChild(document.createElement('div'));   // placeholder
 
     const doneDateDiv = document.createElement('div');
     doneDateDiv.classList.add("done-date");

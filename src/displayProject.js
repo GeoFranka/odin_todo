@@ -9,6 +9,7 @@ function projectForm(projectList){
     projectDiv.textContent = "";
 
     const projForm = document.createElement('form');
+    projForm.classList.add("project-form");
     projectDiv.appendChild(projForm);
 
     const titleInput = createInput("text", "project-title", "project-title", "Name of your new project");

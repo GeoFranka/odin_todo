@@ -56,7 +56,7 @@ button:hover {
     font-weight: bold;
 }
 
-form > .save {
+.project-form > .save {
     display: block;
     margin: 10px 0;
     height: 48px;
@@ -141,8 +141,26 @@ form > .save {
     display: none;
 }
 
+.checklist-item {
+    display: flex;
+    align-items: center;
+}
+
 .todo-add {
     background-image: url(./img/shape-circle-plus.svg);
+}
+
+.checklist-add {
+    background-image: url(./img/plus-box-outline.svg);
+    align-self: start;
+}
+
+.checklist-undone {
+    background-image: url(./img/checkbox-blank-outline.svg);
+}
+
+.checklist-done {
+    background-image: url(./img/checkbox-marked-outline.svg);
 }
 
 .save {

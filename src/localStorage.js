@@ -36,7 +36,8 @@ function getProjectsFromLocalStorage() {
                     parseJSON(td.dueDate), 
                     td.priority, 
                     td.id, 
-                    td.doneDate ? parseJSON(td.doneDate) : null
+                    td.doneDate ? parseJSON(td.doneDate) : null,
+                    td.checklist ? JSON.parse(td.checklist) : []
                 );
             });
             projects.push(project);
@@ -80,6 +81,7 @@ function stringifyProject(project){
             id: todo.id,
             title: todo.title,
             description: todo.description,
+            checklist: JSON.stringify(todo.checklist),
             priority: todo.priority,
             dueDate: todo.dueDate.toJSON(),
             doneDate: todo.doneDate ? todo.doneDate.toJSON() : null
