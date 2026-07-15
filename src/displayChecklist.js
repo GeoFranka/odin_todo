@@ -1,14 +1,23 @@
-function displayChecklistItem(item){
+import displayTodo from "./displayTodo.js";
+
+function displayChecklistItem(item, todo){
     const itemDiv = document.createElement('div');
     itemDiv.classList.add("checklist-item");
     
     const doneBtn = document.createElement('button');
     doneBtn.classList.add("icon");
     doneBtn.classList.add(item.done?"checklist-done":"checklist-undone");
-    doneBtn.addEventListener('click', ()=>{
+    doneBtn.addEventListener('click', (e)=>{
         item.done = !item.done;
-        doneBtn.classList.toggle("checklist-undone");
-        doneBtn.classList.toggle("checklist-done");
+        if(!todo.done && todo.checklistCompleted){
+            todo.markDone();
+        } else if(todo.done && todo.checklistPartlyCompleted){
+            todo.markUndone();
+        }
+        const todoDiv = e.target.closest(".todo");
+        const todoContainer = todoDiv.parentElement;
+        todoDiv.remove();
+        todoContainer.appendChild(displayTodo(todo, false));
     });
     itemDiv.appendChild(doneBtn);
 
@@ -29,7 +38,7 @@ function displayChecklist(todo){
     checklistWrapper.appendChild(checklistDiv);
 
     todo.checklist.forEach(item=>{
-        checklistDiv.appendChild(displayChecklistItem(item));
+        checklistDiv.appendChild(displayChecklistItem(item, todo));
     });
 
     const checklistAddButton = document.createElement('button');
@@ -60,7 +69,7 @@ function checklistItemForm(todo, checklistDiv){
     saveBtn.addEventListener('click', () => {
         const newItem = todo.addChecklistItem(nameInput.value);
         itemForm.remove();
-        checklistDiv.appendChild(displayChecklistItem(newItem));
+        checklistDiv.appendChild(displayChecklistItem(newItem, todo));
         todo.project.saveToLocalStorage();
     });
     itemForm.appendChild(saveBtn);

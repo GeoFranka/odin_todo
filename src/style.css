@@ -116,6 +116,10 @@ button:hover {
     background-image: url(./img/circle.svg);
 }
 
+.partly-done {
+    background-image: url(./img/circle-half-full.svg);
+}
+
 .todo-title.done{
     text-decoration: line-through;
     color: lightgray;

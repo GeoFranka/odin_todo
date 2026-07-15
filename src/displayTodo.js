@@ -80,7 +80,7 @@ function todoForm(project){
     return todoForm;
 }
 
-export default function displayTodo(todo){
+export default function displayTodo(todo, collapsed = true){
 
     const todoDiv = document.createElement('div');
     todoDiv.classList.add("todo");
@@ -91,7 +91,7 @@ export default function displayTodo(todo){
 
     const doneBtn = document.createElement('button');
     doneBtn.classList.add("icon");
-    doneBtn.classList.add(todo.done?"done":"undone");
+    doneBtn.classList.add(todo.done?"done":todo.checklistPartlyCompleted?"partly-done":"undone");
     doneBtn.addEventListener('click', e => {
         if(todo.done){
             todo.markUndone();
@@ -120,12 +120,15 @@ export default function displayTodo(todo){
     mainDiv.appendChild(dueDateDiv);
 
     const expandBtn = document.createElement('button');
-    expandBtn.classList.add("icon", "expand");
+    expandBtn.classList.add("icon", collapsed?"expand":"collapse");
     expandBtn.addEventListener('click', toggleDetail);
     mainDiv.appendChild(expandBtn);
 
     const detailDiv = document.createElement('div');
-    detailDiv.classList.add("todo-detail", "collapsed");
+    detailDiv.classList.add("todo-detail");
+    if(collapsed){
+        detailDiv.classList.add("collapsed");
+    }
     todoDiv.appendChild(detailDiv);
 
     const descrDiv = document.createElement('div');

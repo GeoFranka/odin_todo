@@ -43,11 +43,11 @@ class Todo {
     }
 
     get checklistCompleted(){
-        return this.checklist.length==0 || this.checklist.every(item => {item.done});
+        return this.checklist.length==0 || this.checklist.every(item => item.done);
     }
 
     get checklistPartlyCompleted(){
-        return this.checklist.some(item=>{item.done}) && !(this.checklist.every(item=>{item.done}));
+        return this.checklist.some(item=>item.done) && !(this.checklist.every(item=>item.done));
     }
 
     set completeChecklist(value){
@@ -64,6 +64,7 @@ class Todo {
 
     markDone(){
         this.doneDate = new Date();
+        this.completeChecklist = true;
         this.project.saveToLocalStorage();
     }
 
