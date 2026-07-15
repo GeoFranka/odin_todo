@@ -90,9 +90,18 @@ function stringifyProject(project){
     return projectAsObject;
 }
 
+function saveSelectedProject(id){
+    ls.setItem("selectedProject", id);
+}
+
+function getSelectedProject(){
+    return ls.getItem("selectedProject");
+}
 
 export {
     storageAvailable,
     getProjectsFromLocalStorage,
     saveProjectToLocalStorage,
+    saveSelectedProject,
+    getSelectedProject,
 }

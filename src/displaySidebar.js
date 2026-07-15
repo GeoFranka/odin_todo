@@ -1,5 +1,6 @@
 import displayProject from "./displayProject.js";
 import { projectForm } from "./displayProject.js";
+import { saveSelectedProject } from "./localStorage.js";
 
 function displaySidebar(projectsArray, selectedProjectId){
 
@@ -28,6 +29,7 @@ function displaySidebar(projectsArray, selectedProjectId){
             return pr.id == id;
         });
         displayProject(project);
+        saveSelectedProject(project.id);
     }
 
     function toggleActiveProject(id){

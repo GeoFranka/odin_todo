@@ -2,15 +2,14 @@ import '../node_modules/modern-normalize/modern-normalize.css';
 import "./style.css";
 import Project from "./Project.js";
 import displaySidebar from './displaySidebar.js';
-import { storageAvailable, getProjectsFromLocalStorage } from './localStorage.js';
+import { storageAvailable, getProjectsFromLocalStorage, getSelectedProject, saveSelectedProject } from './localStorage.js';
 
 let projects = [];
-let defaultProjectId;
+let selectedProjectId;
 
 function createDefaultProject(){
 
     const myDefaultProject = new Project("My To Dos", "just the default project");
-    defaultProjectId = myDefaultProject.id;
     var tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
     myDefaultProject.addTodo("do the dishes", "just do it, ok", tomorrow);
@@ -24,16 +23,16 @@ function init(){
     if(storageAvailable("localStorage") && getProjectsFromLocalStorage()){
 
         projects = getProjectsFromLocalStorage();
+        selectedProjectId = getSelectedProject();
 
     } else {
+
         createDefaultProject();
-        const newDummyProject = new Project("Trip to Switzerland", "We're going there in August!");
-        projects.push(newDummyProject);
-        newDummyProject.saveToLocalStorage();
+
     }
 
 }
 
 init();
 
-displaySidebar(projects, projects[0].id);
+displaySidebar(projects, selectedProjectId || projects[0].id);

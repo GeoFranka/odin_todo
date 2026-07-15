@@ -8,16 +8,7 @@ function displayChecklistItem(item, todo){
     doneBtn.classList.add("icon");
     doneBtn.classList.add(item.done?"checklist-done":"checklist-undone");
     doneBtn.addEventListener('click', (e)=>{
-        item.done = !item.done;
-        if(!todo.done && todo.checklistCompleted){
-            todo.markDone();
-        } else if(todo.done && todo.checklistPartlyCompleted){
-            todo.markUndone();
-        }
-        const todoDiv = e.target.closest(".todo");
-        const todoContainer = todoDiv.parentElement;
-        todoDiv.remove();
-        todoContainer.appendChild(displayTodo(todo, false));
+        changeChecklistItemDoneStatus(item, todo, e.target);
     });
     itemDiv.appendChild(doneBtn);
 
@@ -27,6 +18,21 @@ function displayChecklistItem(item, todo){
     itemDiv.appendChild(nameSpan);
 
     return itemDiv;
+}
+
+function changeChecklistItemDoneStatus(item, todo, button){
+    item.done = !item.done;
+    if(!todo.done && todo.checklistCompleted){
+        todo.markDone();
+    } else if(todo.done && todo.checklistPartlyCompleted){
+        todo.markUndone();
+    } else {
+        todo.project.saveToLocalStorage();
+    }
+    const todoDiv = button.closest(".todo");
+    const todoContainer = todoDiv.parentElement;
+    todoDiv.remove();
+    todoContainer.appendChild(displayTodo(todo, false));
 }
 
 function displayChecklist(todo){
@@ -57,9 +63,9 @@ function checklistItemForm(todo, checklistDiv){
 
     const itemForm = document.createElement('form');
     itemForm.classList.add("checklist-item");
-    const doneBtn = document.createElement('button');
-    doneBtn.classList.add("icon", "checklist-undone");
-    itemForm.appendChild(doneBtn);
+    const checklistImage = document.createElement('div');
+    checklistImage.classList.add("icon", "checklist-undone");
+    itemForm.appendChild(checklistImage);
     const nameInput = document.createElement('input');
     nameInput.classList.add("checklist-item-name");
     nameInput.setAttribute("placeholder", "name it");
