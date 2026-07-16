@@ -2,6 +2,7 @@ import { formatRelative, formatISO } from "date-fns";
 import Todo from "./Todo.js";
 import createInput from "./inputFactory.js";
 import { displayChecklist, checklistItemForm } from "./displayChecklist.js";
+import displayProject from "./displayProject.js";
 
 function toggleDetail(e){
     const btn = e.target;
@@ -71,9 +72,8 @@ function todoForm(project){
     saveBtn.setAttribute("type", "button");
     saveBtn.addEventListener('click', () => {
         const newTodo = project.addTodo(titleInput.value, descrInput.value, dueDateInput.valueAsDate, prioDropdown.value);
-        todoForm.remove();
-        document.querySelector(".todos").appendChild(displayTodo(newTodo));
         project.saveToLocalStorage();
+        displayProject(project);
     });
     detailDiv.appendChild(saveBtn);
 
@@ -87,6 +87,7 @@ export default function displayTodo(todo, collapsed = true){
 
     const mainDiv = document.createElement('div');
     mainDiv.classList.add("todo-main");
+    mainDiv.classList.add(todo.done?"done":(todo.priority==1?"high-prio":(todo.priority==2?"medium-prio":"low-prio")));
     todoDiv.appendChild(mainDiv);
 
     const doneBtn = document.createElement('button');
@@ -98,11 +99,7 @@ export default function displayTodo(todo, collapsed = true){
         } else {
             todo.markDone();
         }
-        [doneBtn, titleDiv, dueDateDiv].forEach(element => {
-            element.classList.toggle("undone");
-            element.classList.toggle("done");
-        });
-        showDoneDate(todo, doneDateDiv);
+        displayProject(todo.project);
     });
     mainDiv.appendChild(doneBtn);
 
@@ -138,7 +135,7 @@ export default function displayTodo(todo, collapsed = true){
 
     const prioDiv = document.createElement('div');
     prioDiv.classList.add("priority");
-    prioDiv.textContent = todo.priority;
+    prioDiv.textContent = todo.priorityAsText;
     detailDiv.appendChild(prioDiv);
 
     detailDiv.appendChild(displayChecklist(todo));

@@ -89,6 +89,20 @@ button:hover {
     padding: 3px;
 }
 
+.todo-main.low-prio {
+    background-color: yellow;
+}
+.todo-main.medium-prio {
+    background-color: orange;
+}
+.todo-main.high-prio {
+    background-color: red;
+}
+
+.todo-main.done {
+    background-color: green;
+}
+
 .todo-detail {
     display: grid;
     grid-template-columns: 3fr 2fr;

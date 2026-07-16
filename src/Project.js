@@ -1,4 +1,5 @@
 import Todo from "./Todo.js";
+import { compareAsc } from "date-fns";
 import { saveProjectToLocalStorage } from "./localStorage.js";
 
 export default class Project {
@@ -25,6 +26,7 @@ export default class Project {
     addTodo(title, description, dueDate, priority, id, doneDate, checklist){
         const newTodo = new Todo(title, description, dueDate, priority, id, doneDate, checklist || [], this);
         this.todoList.push(newTodo);
+        this.sortTodos();
         return newTodo;
     }
 
@@ -35,6 +37,21 @@ export default class Project {
         if(todoIndex>-1){
             this.todoList.splice(todoIndex, 1);
         }
+    }
+
+    sortTodos(){
+        this.todoList.sort((a,b)=>{
+            if(a.done && !b.done){
+                return 1;
+            } else if(!a.done && b.done){
+                return -1;
+            } else if(a.done && b.done){
+                return compareAsc(a.doneDate, b.doneDate);
+            } else {
+                return compareAsc(a.dueDate, b.dueDate);
+            }
+            return 0;
+        });
     }
 
     saveToLocalStorage(){

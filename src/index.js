@@ -9,10 +9,7 @@ let selectedProjectId;
 
 function createDefaultProject(){
 
-    const myDefaultProject = new Project("My To Dos", "just the default project");
-    var tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    myDefaultProject.addTodo("do the dishes", "just do it, ok", tomorrow);
+    const myDefaultProject = new Project("My To Dos", "");
     projects.push(myDefaultProject);
     myDefaultProject.saveToLocalStorage();
 

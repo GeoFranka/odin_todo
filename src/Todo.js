@@ -50,6 +50,10 @@ class Todo {
         return this.checklist.some(item=>item.done) && !(this.checklist.every(item=>item.done));
     }
 
+    get checklistUncompleted(){
+        return this.checklist.length==0 || this.checklist.every(item => !item.done);
+    }
+
     set completeChecklist(value){
         this.checklist.forEach(item=>{
             item.done = value;
@@ -65,11 +69,13 @@ class Todo {
     markDone(){
         this.doneDate = new Date();
         this.completeChecklist = true;
+        this.project.sortTodos();
         this.project.saveToLocalStorage();
     }
 
     markUndone(){
         this.doneDate = null;
+        this.project.sortTodos();
         this.project.saveToLocalStorage();
     }
 
