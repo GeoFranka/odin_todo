@@ -3,7 +3,6 @@ import { compareAsc } from "date-fns";
 import { saveProjectToLocalStorage } from "./localStorage.js";
 
 export default class Project {
-
     id;
     title;
     description;
@@ -12,19 +11,19 @@ export default class Project {
     constructor(title, description, id){
         this.title = title;
         this.description = description;
-        if(id){
-            this.id = id;
-        } else {
-            this.id = crypto.randomUUID();
-        }
+        this.id = id|| crypto.randomUUID();
     }
 
     get todos(){
         return this.todoList;
     }
 
-    addTodo(title, description, dueDate, priority, id, doneDate, checklist){
-        const newTodo = new Todo(title, description, dueDate, priority, id, doneDate, checklist || [], this);
+    addTodo({title, description, dueDate, priority, id, doneDate, checklist = []}){
+        const newTodo = new Todo({
+            title, description, dueDate, priority, id, doneDate, checklist, 
+            project: this
+        });
+
         this.todoList.push(newTodo);
         this.sortTodos();
         return newTodo;
@@ -32,8 +31,9 @@ export default class Project {
 
     deleteTodo(id){
         const todoIndex = this.todoList.findIndex(t => {
-            return t.id == id;
+            return t.id === id;
         });
+
         if(todoIndex>-1){
             this.todoList.splice(todoIndex, 1);
         }
@@ -50,6 +50,7 @@ export default class Project {
             } else {
                 return compareAsc(a.dueDate, b.dueDate);
             }
+            
             return 0;
         });
     }

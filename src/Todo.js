@@ -17,20 +17,14 @@ class Todo {
         3: "low priority"
     };
 
-    constructor(title, description, dueDate, priority, id, doneDate, checklist, project){
+    constructor({title, description, dueDate, priority, id, doneDate, checklist, project}){
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority || 2;
-        if(id){
-            this.id = id;
-        } else {
-            this.id = crypto.randomUUID();
-        }
+        this.id = id || crypto.randomUUID();
         this.doneDate = doneDate;
-        if(checklist.length>0){
-            this.checklist = checklist;
-        }
+        this.checklist = checklist;
         this.project = project;
     }
 
@@ -43,7 +37,7 @@ class Todo {
     }
 
     get checklistCompleted(){
-        return this.checklist.length==0 || this.checklist.every(item => item.done);
+        return this.checklist.length===0 || this.checklist.every(item => item.done);
     }
 
     get checklistPartlyCompleted(){
@@ -51,7 +45,7 @@ class Todo {
     }
 
     get checklistUncompleted(){
-        return this.checklist.length==0 || this.checklist.every(item => !item.done);
+        return this.checklist.length===0 || this.checklist.every(item => !item.done);
     }
 
     set completeChecklist(value){

@@ -54,15 +54,16 @@ function todoForm(project){
     prioDropdown.classList.add("priority");
     prioDropdown.setAttribute("name", "priority");
     prioDropdown.setAttribute("id", "priority");
-    for (const [key, value] of Object.entries(Todo.priorityAsText)) {
+    Object.entries(Todo.priorityAsText).forEach(([key, value]) => {
         const option = document.createElement('option');
         option.value = key;
         option.textContent = value;
-        if(key==2){
+        if(key==='2'){
             option.setAttribute("selected", "");
         }
         prioDropdown.appendChild(option);
-    }
+    });
+
     detailDiv.appendChild(prioDropdown);
 
     detailDiv.appendChild(document.createElement('div'));
@@ -71,7 +72,11 @@ function todoForm(project){
     saveBtn.classList.add("icon", "save");
     saveBtn.setAttribute("type", "button");
     saveBtn.addEventListener('click', () => {
-        const newTodo = project.addTodo(titleInput.value, descrInput.value, dueDateInput.valueAsDate, prioDropdown.value);
+        const newTodo = project.addTodo({
+            title: titleInput.value, 
+            description: descrInput.value, 
+            dueDate: dueDateInput.valueAsDate, 
+            priority: prioDropdown.value});
         project.saveToLocalStorage();
         displayProject(project);
     });
@@ -87,7 +92,25 @@ export default function displayTodo(todo, collapsed = true){
 
     const mainDiv = document.createElement('div');
     mainDiv.classList.add("todo-main");
-    mainDiv.classList.add(todo.done?"done":(todo.priority==1?"high-prio":(todo.priority==2?"medium-prio":"low-prio")));
+    let prioClass = "";
+    if(todo.done){
+        prioClass = "done";
+    } else {
+        switch(todo.priority){
+            case '1': {
+                prioClass = "high-prio";
+                break;
+            }
+            case '2': {
+                prioClass = "medium-prio";
+                break;
+            }
+            default: {
+                prioClass = "low-prio";
+            }
+        }
+    }
+    mainDiv.classList.add(prioClass);
     todoDiv.appendChild(mainDiv);
 
     const doneBtn = document.createElement('button');

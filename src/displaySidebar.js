@@ -1,5 +1,4 @@
-import displayProject from "./displayProject.js";
-import { projectForm } from "./displayProject.js";
+import displayProject, { projectForm } from "./displayProject.js";
 import { saveSelectedProject } from "./localStorage.js";
 
 function displaySidebar(projectsArray, selectedProjectId){
@@ -26,21 +25,20 @@ function displaySidebar(projectsArray, selectedProjectId){
     function displaySingleProject(id){
         toggleActiveProject(id);
         const project = projectsArray.find(pr=>{
-            return pr.id == id;
+            return pr.id === id;
         });
         displayProject(project);
         saveSelectedProject(project.id);
     }
 
     function toggleActiveProject(id){
-        for(let i=0; i<projectBtns.length; i++){
-            const btn = projectBtns[i];
+        Array.prototype.forEach.call(projectBtns, (btn) =>{
             if(btn.dataset.id === id){
                 btn.classList.add("active");
             } else {
                 btn.classList.remove("active");
             }
-        }
+        });
     }
 
     document.querySelector(".project-add").addEventListener('click', () => {

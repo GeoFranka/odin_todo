@@ -7,7 +7,7 @@ class ChecklistItem {
     constructor(name, id, done){
         this.name = name;
         this.id = id || crypto.randomUUID();
-        this.done = done ? true : false;
+        this.done = !!done;
     }
 
 }

@@ -1,6 +1,5 @@
 import Project from "./Project.js";
-import displayTodo from "./displayTodo.js";
-import { todoForm } from "./displayTodo.js";
+import displayTodo, { todoForm } from "./displayTodo.js";
 import displaySidebar from "./displaySidebar.js";
 import createInput from "./inputFactory.js";
 
@@ -27,12 +26,11 @@ function projectForm(projectList){
         newProject.saveToLocalStorage();
         displaySidebar(projectList, newProject.id);
     });
-    projForm.appendChild(saveBtn);
 
+    projForm.appendChild(saveBtn);
 }
 
 export default function displayProject(project){
-
     const projectDiv = document.querySelector("#main .project");
     projectDiv.textContent = "";
 
@@ -55,6 +53,7 @@ export default function displayProject(project){
     addBtn.addEventListener('click', () => {
         todoDiv.appendChild(todoForm(project));
     });
+
     wrapper.appendChild(addBtn);
 
     projectDiv.appendChild(wrapper);
@@ -66,7 +65,6 @@ export default function displayProject(project){
     project.todos.forEach(todo => {
         todoDiv.appendChild(displayTodo(todo));
     });
-
 };
 
 export { projectForm };

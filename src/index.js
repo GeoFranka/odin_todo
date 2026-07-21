@@ -8,26 +8,19 @@ let projects = [];
 let selectedProjectId;
 
 function createDefaultProject(){
-
     const myDefaultProject = new Project("My To Dos", "");
     projects.push(myDefaultProject);
     myDefaultProject.saveToLocalStorage();
-
 }
 
 function init(){
-    
-    if(storageAvailable("localStorage") && getProjectsFromLocalStorage()){
-
+    if(storageAvailable("localStorage") 
+        && getProjectsFromLocalStorage()){
         projects = getProjectsFromLocalStorage();
         selectedProjectId = getSelectedProject();
-
     } else {
-
         createDefaultProject();
-
     }
-
 }
 
 init();

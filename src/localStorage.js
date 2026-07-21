@@ -29,16 +29,13 @@ function getProjectsFromLocalStorage() {
         const projectsArray = JSON.parse(ls.getItem("projects"));
         projectsArray.forEach(pr=>{
             const project = new Project(pr.title, pr.description, pr.id);
-            pr.todoList.forEach(td=>{
-                project.addTodo(
-                    td.title, 
-                    td.description, 
-                    parseJSON(td.dueDate), 
-                    td.priority, 
-                    td.id, 
-                    td.doneDate ? parseJSON(td.doneDate) : null,
-                    td.checklist ? JSON.parse(td.checklist) : []
-                );
+            pr.todoList.forEach(({title, description, dueDate, doneDate, priority, id, checklist})=>{
+                project.addTodo({
+                    title, description, priority, id,
+                    dueDate: parseJSON(dueDate), 
+                    doneDate: doneDate ? parseJSON(doneDate) : null,
+                    checklist: checklist ? JSON.parse(checklist) : []
+                });
             });
             projects.push(project);
         });
@@ -57,9 +54,9 @@ function saveProjectToLocalStorage(project){
         projects = getProjectsFromLocalStorage();
     }
 
-    if(projects.find(p=>{return p.id == project.id;})){
+    if(projects.find(p=>{return p.id === project.id;})){
         let projectIndex = projects.findIndex(p=>{
-            return p.id == project.id;
+            return p.id === project.id;
         });
         projects[projectIndex] = project;
     } else {
