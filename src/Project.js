@@ -50,8 +50,6 @@ export default class Project {
             } else {
                 return compareAsc(a.dueDate, b.dueDate);
             }
-            
-            return 0;
         });
     }
 

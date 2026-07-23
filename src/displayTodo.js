@@ -1,7 +1,7 @@
 import { formatRelative, formatISO } from "date-fns";
 import Todo from "./Todo.js";
 import createInput from "./inputFactory.js";
-import { displayChecklist, checklistItemForm } from "./displayChecklist.js";
+import { displayChecklist } from "./displayChecklist.js";
 import displayProject from "./displayProject.js";
 
 function toggleDetail(e){
@@ -72,7 +72,7 @@ function todoForm(project){
     saveBtn.classList.add("icon", "save");
     saveBtn.setAttribute("type", "button");
     saveBtn.addEventListener('click', () => {
-        const newTodo = project.addTodo({
+        project.addTodo({
             title: titleInput.value, 
             description: descrInput.value, 
             dueDate: dueDateInput.valueAsDate, 
@@ -92,7 +92,7 @@ export default function displayTodo(todo, collapsed = true){
 
     const mainDiv = document.createElement('div');
     mainDiv.classList.add("todo-main");
-    let prioClass = "";
+    let prioClass;
     if(todo.done){
         prioClass = "done";
     } else {
@@ -116,7 +116,7 @@ export default function displayTodo(todo, collapsed = true){
     const doneBtn = document.createElement('button');
     doneBtn.classList.add("icon");
     doneBtn.classList.add(todo.done?"done":todo.checklistPartlyCompleted?"partly-done":"undone");
-    doneBtn.addEventListener('click', e => {
+    doneBtn.addEventListener('click', () => {
         if(todo.done){
             todo.markUndone();
         } else {

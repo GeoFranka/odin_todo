@@ -2,7 +2,7 @@ import '../node_modules/modern-normalize/modern-normalize.css';
 import "./style.css";
 import Project from "./Project.js";
 import displaySidebar from './displaySidebar.js';
-import { storageAvailable, getProjectsFromLocalStorage, getSelectedProject, saveSelectedProject } from './localStorage.js';
+import { storageAvailable, getProjectsFromLocalStorage, getSelectedProject } from './localStorage.js';
 
 let projects = [];
 let selectedProjectId;
