@@ -1,50 +1,48 @@
 import displayProject, { projectForm } from "./displayProject.js";
 import { saveSelectedProject } from "./localStorage.js";
 
-function displaySidebar(projectsArray, selectedProjectId){
+function displaySidebar(projectsArray, selectedProjectId) {
+  const projectsDiv = document.querySelector(".projects");
+  const projectBtns = document.getElementsByClassName("project-btn");
 
-    const projectsDiv = document.querySelector(".projects");
-    const projectBtns = document.getElementsByClassName("project-btn");
+  projectsDiv.textContent = "";
 
-    projectsDiv.textContent = "";
-
-    projectsArray.forEach(project => {
-        const btn = document.createElement("button");
-        btn.classList.add("project-btn");
-        btn.textContent = project.title;
-        btn.dataset.id = project.id;
-        btn.addEventListener("click", e => {
-            const id = e.target.dataset.id;
-            displaySingleProject(id);
-        });
-        projectsDiv.appendChild(btn);
+  projectsArray.forEach((project) => {
+    const btn = document.createElement("button");
+    btn.classList.add("project-btn");
+    btn.textContent = project.title;
+    btn.dataset.id = project.id;
+    btn.addEventListener("click", (e) => {
+      const id = e.target.dataset.id;
+      displaySingleProject(id);
     });
+    projectsDiv.appendChild(btn);
+  });
 
-    displaySingleProject(selectedProjectId);
+  displaySingleProject(selectedProjectId);
 
-    function displaySingleProject(id){
-        toggleActiveProject(id);
-        const project = projectsArray.find(pr=>{
-            return pr.id === id;
-        });
-        displayProject(project);
-        saveSelectedProject(project.id);
-    }
-
-    function toggleActiveProject(id){
-        Array.prototype.forEach.call(projectBtns, (btn) =>{
-            if(btn.dataset.id === id){
-                btn.classList.add("active");
-            } else {
-                btn.classList.remove("active");
-            }
-        });
-    }
-
-    document.querySelector(".project-add").addEventListener('click', () => {
-        projectForm(projectsArray);
+  function displaySingleProject(id) {
+    toggleActiveProject(id);
+    const project = projectsArray.find((pr) => {
+      return pr.id === id;
     });
+    displayProject(project);
+    saveSelectedProject(project.id);
+  }
 
+  function toggleActiveProject(id) {
+    Array.prototype.forEach.call(projectBtns, (btn) => {
+      if (btn.dataset.id === id) {
+        btn.classList.add("active");
+      } else {
+        btn.classList.remove("active");
+      }
+    });
+  }
+
+  document.querySelector(".project-add").addEventListener("click", () => {
+    projectForm(projectsArray);
+  });
 }
 
 export default displaySidebar;

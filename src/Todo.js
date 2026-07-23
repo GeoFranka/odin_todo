@@ -1,83 +1,97 @@
 import ChecklistItem from "./ChecklistItem.js";
 
 class Todo {
+  id;
+  project;
+  title;
+  description;
+  checklist = [];
+  priority;
+  dueDate;
+  doneDate;
 
-    id;
-    project;
-    title; 
-    description;
-    checklist = [];
-    priority;
-    dueDate; 
-    doneDate;
+  static priorityAsText = {
+    1: "high priority",
+    2: "medium priority",
+    3: "low priority",
+  };
 
-    static priorityAsText = {
-        1: "high priority",
-        2: "medium priority",
-        3: "low priority"
-    };
+  constructor({
+    title,
+    description,
+    dueDate,
+    priority,
+    id,
+    doneDate,
+    checklist,
+    project,
+  }) {
+    this.title = title;
+    this.description = description;
+    this.dueDate = dueDate;
+    this.priority = priority || 2;
+    this.id = id || crypto.randomUUID();
+    this.doneDate = doneDate;
+    this.checklist = checklist;
+    this.project = project;
+  }
 
-    constructor({title, description, dueDate, priority, id, doneDate, checklist, project}){
-        this.title = title;
-        this.description = description;
-        this.dueDate = dueDate;
-        this.priority = priority || 2;
-        this.id = id || crypto.randomUUID();
-        this.doneDate = doneDate;
-        this.checklist = checklist;
-        this.project = project;
-    }
+  get priorityAsText() {
+    return Todo.priorityAsText[this.priority];
+  }
 
-    get priorityAsText(){
-        return Todo.priorityAsText[this.priority];
-    }
+  get done() {
+    return this.doneDate != null;
+  }
 
-    get done(){
-        return this.doneDate != null;
-    }
+  get checklistCompleted() {
+    return (
+      this.checklist.length === 0 || this.checklist.every((item) => item.done)
+    );
+  }
 
-    get checklistCompleted(){
-        return this.checklist.length===0 || this.checklist.every(item => item.done);
-    }
+  get checklistPartlyCompleted() {
+    return (
+      this.checklist.some((item) => item.done) &&
+      !this.checklist.every((item) => item.done)
+    );
+  }
 
-    get checklistPartlyCompleted(){
-        return this.checklist.some(item=>item.done) && !(this.checklist.every(item=>item.done));
-    }
+  get checklistUncompleted() {
+    return (
+      this.checklist.length === 0 || this.checklist.every((item) => !item.done)
+    );
+  }
 
-    get checklistUncompleted(){
-        return this.checklist.length===0 || this.checklist.every(item => !item.done);
-    }
+  set completeChecklist(value) {
+    this.checklist.forEach((item) => {
+      item.done = value;
+    });
+  }
 
-    set completeChecklist(value){
-        this.checklist.forEach(item=>{
-            item.done = value;
-        });
-    }
+  addChecklistItem(name, id, done) {
+    const newItem = new ChecklistItem(name, id, done);
+    this.checklist.push(newItem);
+    return newItem;
+  }
 
-    addChecklistItem(name, id, done){
-        const newItem = new ChecklistItem(name, id, done);
-        this.checklist.push(newItem);
-        return newItem;
-    }
+  markDone() {
+    this.doneDate = new Date();
+    this.completeChecklist = true;
+    this.project.sortTodos();
+    this.project.saveToLocalStorage();
+  }
 
-    markDone(){
-        this.doneDate = new Date();
-        this.completeChecklist = true;
-        this.project.sortTodos();
-        this.project.saveToLocalStorage();
-    }
+  markUndone() {
+    this.doneDate = null;
+    this.project.sortTodos();
+    this.project.saveToLocalStorage();
+  }
 
-    markUndone(){
-        this.doneDate = null;
-        this.project.sortTodos();
-        this.project.saveToLocalStorage();
-    }
-
-    delete(){
-        this.project.deleteTodo(this.id);
-        this.project.saveToLocalStorage();
-    }
-
+  delete() {
+    this.project.deleteTodo(this.id);
+    this.project.saveToLocalStorage();
+  }
 }
 
 export default Todo;

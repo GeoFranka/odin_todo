@@ -1,191 +1,192 @@
 button:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #container {
-    height: 100vh;
-    display: grid;
-    grid-template-columns: clamp(200px, 25vw, 400px) 1fr;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: clamp(200px, 25vw, 400px) 1fr;
 }
 
 #container > * {
-    padding: 20px;
+  padding: 20px;
 }
 
 #sidebar {
-    background-color: lightskyblue;
+  background-color: lightskyblue;
 }
 
 .project-btn {
-    width: 100%;
-    border: none;
-    border-radius: 5px;
-    padding: 5px 15px;
-    margin-bottom: 10px;
-    background-color: rgba(250, 250, 250, 0.5);
-    font-weight: 500;
-    font-size: 1.5rem;
-    text-align: left;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 15px;
+  margin-bottom: 10px;
+  background-color: rgba(250, 250, 250, 0.5);
+  font-weight: 500;
+  font-size: 1.5rem;
+  text-align: left;
 }
 
-.project-btn:hover, .project-btn.active {
-    background-color: rgba(5, 5, 5, 0.5);
-    color: white;
+.project-btn:hover,
+.project-btn.active {
+  background-color: rgba(5, 5, 5, 0.5);
+  color: white;
 }
 
 #sidebar > .wrapper {
-    margin-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .project-add {
-    background-image: url(./img/card-plus-outline.svg);
+  background-image: url(./img/card-plus-outline.svg);
 }
 
 #main {
-    background-color: cornsilk;
-    overflow: auto;
+  background-color: cornsilk;
+  overflow: auto;
 }
 
 .project-title {
-    display: block;
-    font-size: 2em;
-    margin-block-start: 0;
-    margin-block-end: 0.67em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
+  display: block;
+  font-size: 2em;
+  margin-block-start: 0;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
 }
 
 .project-form > .save {
-    display: block;
-    margin: 10px 0;
-    height: 48px;
-    width: 48px;
+  display: block;
+  margin: 10px 0;
+  height: 48px;
+  width: 48px;
 }
 
 .wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .project-descr {
-    font-style: italic;
+  font-style: italic;
 }
 
 .todo {
-    border: 2px solid gray;
-    border-radius: 10px;
-    margin-bottom: 10px;
+  border: 2px solid gray;
+  border-radius: 10px;
+  margin-bottom: 10px;
 }
 
 .todo-main {
-    display: grid;
-    grid-template-columns: 24px 3fr 2fr 24px;
-    column-gap: 10px;
-    align-items: center;
-    background-color: gray;
-    color: white;
-    padding: 3px;
+  display: grid;
+  grid-template-columns: 24px 3fr 2fr 24px;
+  column-gap: 10px;
+  align-items: center;
+  background-color: gray;
+  color: white;
+  padding: 3px;
 }
 
 .todo-main.low-prio {
-    background-color: yellow;
+  background-color: yellow;
 }
 .todo-main.medium-prio {
-    background-color: orange;
+  background-color: orange;
 }
 .todo-main.high-prio {
-    background-color: red;
+  background-color: red;
 }
 
 .todo-main.done {
-    background-color: green;
+  background-color: green;
 }
 
 .todo-detail {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    column-gap: 10px;
-    row-gap: 3px;
-    align-items: center;
-    padding: 3px 37px;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  column-gap: 10px;
+  row-gap: 3px;
+  align-items: center;
+  padding: 3px 37px;
 }
 
 .icon {
-    width: 24px;
-    height: 24px;
-    padding: 0;
-    border: none;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-color: transparent;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: transparent;
 }
 
 .icon.undone {
-    background-image: url(./img/circle-outline.svg);
+  background-image: url(./img/circle-outline.svg);
 }
 
 .icon.done {
-    background-image: url(./img/circle.svg);
+  background-image: url(./img/circle.svg);
 }
 
 .partly-done {
-    background-image: url(./img/circle-half-full.svg);
+  background-image: url(./img/circle-half-full.svg);
 }
 
-.todo-title.done{
-    text-decoration: line-through;
-    color: lightgray;
+.todo-title.done {
+  text-decoration: line-through;
+  color: lightgray;
 }
 
 .due-date.done {
-    color: lightgreen;
+  color: lightgreen;
 }
 
 .done-date {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .expand {
-    background-image: url(./img/arrow-expand.svg);
+  background-image: url(./img/arrow-expand.svg);
 }
 
 .collapse {
-    background-image: url(./img/arrow-collapse.svg);
+  background-image: url(./img/arrow-collapse.svg);
 }
 
 .collapsed {
-    display: none;
+  display: none;
 }
 
 .checklist-item {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .todo-add {
-    background-image: url(./img/shape-circle-plus.svg);
+  background-image: url(./img/shape-circle-plus.svg);
 }
 
 .checklist-add {
-    background-image: url(./img/plus-box-outline.svg);
-    align-self: start;
+  background-image: url(./img/plus-box-outline.svg);
+  align-self: start;
 }
 
 .checklist-undone {
-    background-image: url(./img/checkbox-blank-outline.svg);
+  background-image: url(./img/checkbox-blank-outline.svg);
 }
 
 .checklist-done {
-    background-image: url(./img/checkbox-marked-outline.svg);
+  background-image: url(./img/checkbox-marked-outline.svg);
 }
 
 .save {
-    background-image: url(./img/content-save-outline.svg);
+  background-image: url(./img/content-save-outline.svg);
 }
 
 .delete {
-    background-image: url(./img/delete-circle-outline.svg);
-    justify-self: end;
+  background-image: url(./img/delete-circle-outline.svg);
+  justify-self: end;
 }

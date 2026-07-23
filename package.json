@@ -25,6 +25,7 @@
     "globals": "^17.7.0",
     "html-loader": "^5.1.0",
     "html-webpack-plugin": "^5.6.7",
+    "prettier": "3.9.6",
     "style-loader": "^4.0.0",
     "webpack": "^5.107.2",
     "webpack-cli": "^7.0.3",
